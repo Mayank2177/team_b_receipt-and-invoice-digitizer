@@ -1,1 +1,1 @@
-# receipt-and-invoice-digitizer
+# Receipt-and-invoice-digitizer
