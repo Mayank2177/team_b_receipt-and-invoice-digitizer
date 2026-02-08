@@ -13,4 +13,4 @@ google-generativeai
 streamlit_option_menu
 spacy
 plotly
-#python -m spacy download en_core_web_sm
+
