@@ -19,10 +19,6 @@ Before running the application, ensure you have the following installed:
 ```bash
 git clone https://github.com/Mayank2177/team_b_receipt-and-invoice-digitizer.git
 ```
-Move to main folder:
-```bash
-cd app
-```
 
 #### 2. Create a Virtual Environment
 
