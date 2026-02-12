@@ -1,4 +1,4 @@
-from database.db import get_db
+from db import get_db
 
 
 # ================= SAVE RECEIPT =================
@@ -102,3 +102,4 @@ def clear_all_receipts():
     db = get_db()
     db.execute("DELETE FROM receipts")
     db.commit()
+
