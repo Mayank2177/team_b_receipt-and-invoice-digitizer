@@ -1,4 +1,4 @@
-from config.config import ALLOWED_EXTENSIONS, MAX_FILE_SIZE_MB
+from config import ALLOWED_EXTENSIONS, MAX_FILE_SIZE_MB
 
 def validate_uploaded_file(uploaded_file):
     if uploaded_file is None:
@@ -28,3 +28,4 @@ def detect_duplicate(df, merchant, date, total):
         (df["date"] == date) &
         (df["total"] == total)
     ].empty
+
