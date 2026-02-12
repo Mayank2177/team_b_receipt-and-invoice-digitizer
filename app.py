@@ -1,14 +1,14 @@
 import streamlit as st  # type: ignore
 from database.db import init_db  # type: ignore
-from ui.landing_page import render_landing_page  # type: ignore
-from ui.auth_page import render_login_page, render_signup_page
-from ui.sidebar import render_sidebar
-from ui.upload_ui import render_upload_ui
-from ui.dashboard_ui import render_dashboard
-from ui.validation_ui import validation_ui
-from ui.analytics_ui import render_analytics
-from ui.styles import apply_global_styles
-from config.translations import get_text
+from landing_page import render_landing_page  # type: ignore
+from auth_page import render_login_page, render_signup_page
+from sidebar import render_sidebar
+from upload_ui import render_upload_ui
+from dashboard_ui import render_dashboard
+from validation_ui import validation_ui
+from analytics_ui import render_analytics
+from styles import apply_global_styles
+from translations import get_text
 
 # ================= CONFIG =================
 st.set_page_config(
@@ -77,3 +77,4 @@ def render_main_app():
 
 if __name__ == "__main__":
     main()
+
