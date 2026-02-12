@@ -1,6 +1,6 @@
-from ai.gemini_client import GeminiClient
+from gemini_client import GeminiClient
 import streamlit as st
-from config.translations import get_text
+from translations import get_text
 
 def generate_ai_insights(df, lang="en") -> str:
     """
@@ -56,3 +56,4 @@ def generate_ai_insights(df, lang="en") -> str:
         return client.generate_insights(summary_str)
     except Exception as e:
         return f"Error generating insights: {str(e)}"
+
