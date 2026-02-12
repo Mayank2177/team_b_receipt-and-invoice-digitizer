@@ -1,5 +1,5 @@
 import streamlit as st  # type: ignore
-from database.db import init_db  # type: ignore
+from db import init_db  # type: ignore
 from landing_page import render_landing_page  # type: ignore
 from auth_page import render_login_page, render_signup_page
 from sidebar import render_sidebar
@@ -77,4 +77,5 @@ def render_main_app():
 
 if __name__ == "__main__":
     main()
+
 
