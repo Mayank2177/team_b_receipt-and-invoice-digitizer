@@ -1,6 +1,6 @@
 import json  # Standard IDE sync complete
 import google.generativeai as genai  # type: ignore
-from ai.prompts import RECEIPT_EXTRACTION_PROMPT, DATA_ANALYSIS_PROMPT, CHAT_WITH_DATA_PROMPT  # type: ignore
+from prompts import RECEIPT_EXTRACTION_PROMPT, DATA_ANALYSIS_PROMPT, CHAT_WITH_DATA_PROMPT  # type: ignore
 
 class GeminiClient:
     """
@@ -138,3 +138,4 @@ class GeminiClient:
             return response.text
         except Exception as e:
             return "Sorry, I encountered an error analyzing the data."
+
