@@ -3,10 +3,10 @@ from PIL import Image  # type: ignore
 import pytesseract  # type: ignore
 import pandas as pd  # type: ignore
 
-from ocr.text_parser import parse_receipt  # type: ignore
-from ui.validation_ui import validate_receipt  # type: ignore
-from database.queries import save_receipt, receipt_exists  # type: ignore
-from config.translations import get_text  # type: ignore
+from text_parser import parse_receipt  # type: ignore
+from validation_ui import validate_receipt  # type: ignore
+from queries import save_receipt, receipt_exists  # type: ignore
+from translations import get_text  # type: ignore
 
 
 def render_upload_ui():
@@ -132,3 +132,4 @@ def render_upload_ui():
         st.success(get_text(lang, "validation_passed_save"))
     else:
         st.error(get_text(lang, "validation_failed"))
+
