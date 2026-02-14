@@ -61,7 +61,7 @@ def render_upload_ui():
 
     with st.spinner(get_text(lang, "extracting_data")):
         if use_ai:
-            from ai.gemini_client import GeminiClient
+            from gemini_client import GeminiClient
             try:
                 client = GeminiClient(api_key)
                 # Gemini takes PIL image directly
@@ -132,4 +132,5 @@ def render_upload_ui():
         st.success(get_text(lang, "validation_passed_save"))
     else:
         st.error(get_text(lang, "validation_failed"))
+
 
