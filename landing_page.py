@@ -1,11 +1,5 @@
 import streamlit as st  # type: ignore
 from translations import get_text, get_available_languages  # type: ignore
-import base64
-
-# Function to convert image to base64
-def get_base64_image(image_path):
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
 
 
 
@@ -307,14 +301,12 @@ def render_landing_page():
             st.rerun()
 
     
-    img_base64 = get_base64_image("assets/logo.png")
+   
     # Hero Section
     st.markdown(f"""
     st.markdown(f"""
     <div class="hero-section">
-        <div class="hero-emoji float">
-            <img src="data:image/png;base64,{img_base64}" width="100">
-        </div>
+        <div class="hero-emoji float">🧾</div>
         <div class="hero-title">{get_text(lang, "hero_title")}</div>
         <div class="hero-subtitle">{get_text(lang, "hero_subtitle")}</div>
     </div>
@@ -461,6 +453,7 @@ def render_landing_page():
         if st.button(f"🎉 {get_text(lang, 'get_started')} - It's Free!", use_container_width=True, type="primary", key="final_cta"):
             st.session_state["page"] = "signup"
             st.rerun()
+
 
 
 
