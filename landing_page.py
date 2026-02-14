@@ -302,7 +302,10 @@ def render_landing_page():
     # Hero Section
     st.markdown(f"""
     <div class="hero-section">
-        <div class="hero-emoji float">🧾</div>
+        <div class="hero-emoji float">
+            <img src="assets/logo.png">
+        </div>
+
         <div class="hero-title">{get_text(lang, "hero_title")}</div>
         <div class="hero-subtitle">{get_text(lang, "hero_subtitle")}</div>
     </div>
@@ -449,4 +452,5 @@ def render_landing_page():
         if st.button(f"🎉 {get_text(lang, 'get_started')} - It's Free!", use_container_width=True, type="primary", key="final_cta"):
             st.session_state["page"] = "signup"
             st.rerun()
+
 
