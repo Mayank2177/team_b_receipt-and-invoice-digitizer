@@ -1,5 +1,4 @@
 import streamlit as st
-import cv2
 from db import init_db  # type: ignore
 from landing_page import render_landing_page  # type: ignore
 from auth_page import render_login_page, render_signup_page
@@ -78,6 +77,7 @@ def render_main_app():
 
 if __name__ == "__main__":
     main()
+
 
 
 
