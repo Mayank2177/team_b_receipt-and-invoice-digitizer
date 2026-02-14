@@ -7,8 +7,7 @@ def get_base64_image(image_path):
     with open(image_path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode()
 
-# Get the base64 string
-img_base64 = get_base64_image("assets/logo.png")
+
 
 def apply_landing_css():
     """Apply custom CSS for landing page"""
@@ -306,7 +305,9 @@ def render_landing_page():
         if st.button("✨ " + get_text(lang, "signup"), use_container_width=True, type="primary"):
             st.session_state["page"] = "signup"
             st.rerun()
+
     
+    img_base64 = get_base64_image("assets/logo.png")
     # Hero Section
     st.markdown(f"""
     st.markdown(f"""
@@ -460,6 +461,7 @@ def render_landing_page():
         if st.button(f"🎉 {get_text(lang, 'get_started')} - It's Free!", use_container_width=True, type="primary", key="final_cta"):
             st.session_state["page"] = "signup"
             st.rerun()
+
 
 
 
