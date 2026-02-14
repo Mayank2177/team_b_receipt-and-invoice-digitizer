@@ -114,7 +114,7 @@ def render_sidebar():
         st.markdown("### 💰 Monthly Budget")
         
         # Get current month spending
-        from database.queries import fetch_all_receipts
+        from queries import fetch_all_receipts
         from datetime import datetime
         import pandas as pd
         
@@ -181,4 +181,5 @@ def render_sidebar():
         st.caption("v2.0 • Built with ❤️ using Streamlit & Gemini AI")
         
         return page
+
 
