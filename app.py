@@ -12,7 +12,7 @@ from translations import get_text
 
 # ================= CONFIG =================
 st.set_page_config(
-    page_title="Receipt Vault Analyzer",
+    page_title="Mydigibill",
     page_icon="assets/logo.png",
     layout="wide",
     initial_sidebar_state="auto"
@@ -77,6 +77,7 @@ def render_main_app():
 
 if __name__ == "__main__":
     main()
+
 
 
 
