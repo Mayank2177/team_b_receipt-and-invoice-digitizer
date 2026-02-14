@@ -55,6 +55,8 @@ If you want to run headless (useful on servers):
 streamlit run app.py --server.headless true --server.port 8501
 ```
 
+**Note: Don't forget to Apply to enter GEMINI API KEY**
+
 ### Troubleshooting:
 
 | Issue | Solution |
