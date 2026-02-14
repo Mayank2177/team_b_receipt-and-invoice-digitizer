@@ -71,12 +71,13 @@ def render_main_app():
     elif app_page == get_text(lang, "analytics") or app_page == "Analytics":
         render_analytics()
     elif app_page == get_text(lang, "chat") or app_page == "Chat with Data":
-        from ui.chat_ui import render_chat
+        from chat_ui import render_chat
         render_chat()
 
 
 if __name__ == "__main__":
     main()
+
 
 
 
