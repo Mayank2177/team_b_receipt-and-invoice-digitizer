@@ -43,7 +43,7 @@ Run the command:
 ```bash
 streamlit run app.py
 ```
-The application will be available at `http://localhost:5000`
+The application will be available at `http://localhost:8501`
 
 By default Streamlit serves at http://localhost:8501. To use a specific port (e.g. 8080):
 ```bash
