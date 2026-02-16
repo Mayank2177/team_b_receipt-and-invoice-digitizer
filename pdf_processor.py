@@ -2,7 +2,7 @@ from pdf2image import convert_from_bytes
 from typing import List
 from PIL import Image
 
-from config.config import POPPLER_PATH
+from config import POPPLER_PATH
 
 
 def pdf_to_images(pdf_bytes: bytes) -> List[Image.Image]:
@@ -14,3 +14,4 @@ def pdf_to_images(pdf_bytes: bytes) -> List[Image.Image]:
         poppler_path=POPPLER_PATH
     )
     return images
+
