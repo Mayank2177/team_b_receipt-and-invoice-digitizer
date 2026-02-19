@@ -24,6 +24,7 @@ TRANSLATIONS = {
         "analytics": "Analytics",
         "validation": "Validation",
         "chat": "Chat with Data",
+        "erp_integration": "ERP & API",
         "settings": "Settings",
         "language": "Language",
         "feature_1_title": "AI-Powered OCR",
