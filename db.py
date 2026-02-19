@@ -38,6 +38,23 @@ def init_db():
         """
     )
     
+    # --- Optimization: Add Indexes for Search ---
+    db.execute("CREATE INDEX IF NOT EXISTS idx_vendor ON receipts(vendor)")
+    db.execute("CREATE INDEX IF NOT EXISTS idx_date ON receipts(date)")
+    db.execute("CREATE INDEX IF NOT EXISTS idx_category ON receipts(category)")
+
+    db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS users (
+            email TEXT PRIMARY KEY,
+            password TEXT,
+            name TEXT,
+            phone TEXT,
+            auth_method TEXT DEFAULT 'email'
+        )
+        """
+    )
+
     # Migration: Add subtotal column if it doesn't exist
     try:
         db.execute("ALTER TABLE receipts ADD COLUMN subtotal REAL DEFAULT 0.0")
