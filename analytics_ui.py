@@ -3,16 +3,16 @@ import pandas as pd  # type: ignore
 import plotly.express as px  # type: ignore
 import plotly.graph_objects as go  # type: ignore
 from datetime import datetime, timedelta  # type: ignore
-from queries import fetch_all_receipts  # type: ignore
-from translations import get_text, TRANSLATIONS  # type: ignore
-from config import CURRENCY_SYMBOL  # type: ignore
-from insights import generate_ai_insights  # type: ignore
-from forecasting import (  # type: ignore
+from database.queries import fetch_all_receipts  # type: ignore
+from config.translations import get_text, TRANSLATIONS  # type: ignore
+from config.config import CURRENCY_SYMBOL  # type: ignore
+from ai.insights import generate_ai_insights  # type: ignore
+from analytics.forecasting import (  # type: ignore
     calculate_moving_averages,
     predict_next_month_spending,
     predict_spending_polynomial
 )
-from advanced_analytics import (  # type: ignore
+from analytics.advanced_analytics import (  # type: ignore
     detect_subscriptions,
     calculate_burn_rate
 )
@@ -618,4 +618,3 @@ def render_analytics():
                     {st.session_state["ai_insights_cache"]}
                 </div>
                 """, unsafe_allow_html=True)
-
