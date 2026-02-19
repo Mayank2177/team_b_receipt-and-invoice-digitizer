@@ -52,54 +52,106 @@ def _extract_date(text):
     return datetime.today().strftime("%Y-%m-%d")
 
 
+from ocr.templates import get_matching_template
+
 # ---------- MAIN PARSER ----------
 
 def parse_receipt(text: str):
     """
     Returns structured data and item list from raw OCR text.
+    First tries template-based parsing, then falls back to generic rules.
     """
+    
+    # Try template-based parsing first
+    template = get_matching_template(text)
+    template_data = {}
+    
+    if template:
+        # Extract fields using template patterns
+        if template.bill_id_pattern:
+            m = re.search(template.bill_id_pattern, text)
+            if m: template_data['bill_id'] = m.group(1)
+            
+        if template.date_pattern:
+            m = re.search(template.date_pattern, text)
+            if m: template_data['date'] = m.group(1) # Note: might need normalization
+            
+        if template.total_pattern:
+            m = re.search(template.total_pattern, text)
+            if m: template_data['amount'] = _clean_amount(m.group(1))
+
+        if template.tax_pattern:
+            m = re.search(template.tax_pattern, text)
+            if m: template_data['tax'] = _clean_amount(m.group(1))
+
+        template_data['vendor'] = template.name
 
     lines = [l.strip() for l in text.splitlines() if l.strip()]
 
     # ---------- BILL ID ----------
-    bill_id = None
-    bill_patterns = [
-        r"(?i)(bill|invoice|receipt|txn|trans)\s*(no|id|#)?\s*[:.-]?\s*([a-zA-Z0-9/-]+)",
-        r"(?i)#\s*([0-9]+)"
-    ]
-    
-    for l in lines:
-        for p in bill_patterns:
-            m = re.search(p, l)
-            if m:
-                try:
-                    candidate = m.group(3)
-                except IndexError:
+    bill_id = template_data.get('bill_id')
+    if not bill_id:
+        # Reordered and added word boundaries to prevent partial matches like 'action' from 'Transaction'
+        bill_prefixes = r"(?:transaction|invoice|receipt|order|ticket|bill|inv|rec|txn|trans)"
+        bill_patterns = [
+            rf"(?i)\b{bill_prefixes}\b\s*(?:no|id|number|#)?\s*[:.-]?\s*([a-zA-Z0-9/-]+)",
+            r"(?i)#\s*([a-zA-Z0-9/-]+)",
+            r"(?i)\b(?:inv|rec|txn)\b\s*[:.-]?\s*([a-zA-Z0-9/-]+)"
+        ]
+        
+        for l in lines:
+            for p in bill_patterns:
+                m = re.search(p, l)
+                if m:
                     candidate = m.group(1)
-                
-                if len(candidate) > 2:
-                    bill_id = candidate
-                    break
-        if bill_id:
-            break
+                    if candidate and len(candidate) > 2 and not any(kw in candidate.lower() for kw in ['total', 'tax', 'date', 'amount', 'item']):
+                        bill_id = candidate
+                        break
+            if bill_id:
+                break
 
     if not bill_id:
         bill_id = _default_bill_id()
 
     # ---------- VENDOR ----------
-    vendor = "Unknown Vendor"
-    generic_headers = ["tax invoice", "cash receipt", "bill of supply", "estimate", "original"]
-    
-    # Using simple loop to avoid slice indexing lint errors
-    for i, line_text in enumerate(lines):
-        if i >= 3:
-            break
-        if line_text.lower() not in generic_headers and len(line_text) > 3:
-            vendor = line_text
-            break
+    vendor = template_data.get('vendor')
+    if not vendor:
+        vendor = "Unknown Vendor"
+        generic_headers = ["tax invoice", "cash receipt", "bill of supply", "estimate", "original", "trans"]
+        
+        # Using simple loop to avoid slice indexing lint errors
+        for i, line_text in enumerate(lines):
+            if i >= 3:
+                break
+            if line_text.lower().strip() not in generic_headers and len(line_text) > 3:
+                vendor = line_text
+                break
 
     # ---------- DATE ----------
-    date = _extract_date(text)
+    date = template_data.get('date')
+    if not date:
+        date = _extract_date(text)
+    else:
+        # Basic normalization for template dates
+        try:
+            # Try some common formats or just return as is if it looks okay
+            if re.match(r"\d{4}-\d{2}-\d{2}", date):
+                pass 
+            elif "/" in date:
+                parts = date.split("/")
+                if len(parts) == 3:
+                    if len(parts[2]) == 2: parts[2] = "20" + parts[2]
+                    # Default: Assume MM/DD/YYYY structure for US templates
+                    # parts[0]=MM, parts[1]=DD, parts[2]=YYYY
+                    mm, dd, yyyy = parts[0], parts[1], parts[2]
+                    
+                    # If MM > 12, swap to DD/MM/YYYY
+                    if int(mm) > 12:
+                         mm, dd = dd, mm
+                         
+                    date = f"{yyyy}-{mm}-{dd}"
+        except:
+             date = _extract_date(text)
 
     # ---------- FINANCIALS ----------
     total = 0.0
@@ -108,7 +160,9 @@ def parse_receipt(text: str):
 
     for l in lines:
         # TOTAL
-        if re.search(r"(?i)\b(total|tot|due|payable)\b", l):
+        if template_data.get('amount'):
+            total = template_data['amount']
+        elif re.search(r"(?i)\b(total|tot|due|payable)\b", l):
             nums = re.findall(r"\d+[.,]?\d*", l)
             if nums:
                 dotted = [n for n in nums if "." in n or "," in n]
@@ -121,7 +175,9 @@ def parse_receipt(text: str):
                         total = _clean_amount(nums[-1])
         
         # TAX
-        if re.search(r"(?i)\b(tax|gst|vat|cgst|sgst)\b", l):
+        if template_data.get('tax'):
+             tax = template_data['tax']
+        elif re.search(r"(?i)\b(tax|gst|vat|cgst|sgst)\b", l):
             if "invoice" not in l.lower():
                  nums = re.findall(r"\d+[.,]?\d*", l)
                  if nums:
