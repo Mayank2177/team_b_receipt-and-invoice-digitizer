@@ -4,6 +4,15 @@
 
 **MyDigiBill** is an automated receipt and invoice digitization system that inputs images/document through multiple formats (jpg, png, pdf), preprocesses them for optimal quality, and uses OCR technology (Tesseract) to extract text. An NLP-based extraction + regex engine then intelligently identifies and structures key fields like vendor details, line items, amounts, dates, and taxes into a standardized database format. The system validates extracted data against business rules, stores it in a searchable database with original image references, and provides API integration with popular accounting/ERP systems along with a user-friendly dashboard for review, search, analytics, and export capabilities—ultimately eliminating manual data entry, reducing errors, and enabling real-time financial insights.
 
+## Table of Contents
+*   [Introduction](### Description)
+*   [Prerequisites](### Prerequisites)
+*   [Launch the app in your local System](### Steps to Run the App (on your system))
+    *   [Example 1](#example-1)
+    *   [Example 2](#example-2)
+*   [Folder_info](### Folder Description)
+*   [Troubleshooting](### Troubleshooting)
+
 ### Prerequisites:
 
 Before running the application, ensure you have the following installed:
@@ -56,6 +65,9 @@ streamlit run app.py --server.headless true --server.port 8501
 ```
 
 **Note: Don't forget to Apply to enter GEMINI API KEY**
+
+### Folder Description
+
 
 ### Troubleshooting:
 
