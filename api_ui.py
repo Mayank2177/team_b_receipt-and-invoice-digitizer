@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import json
-from config.translations import get_text
+from translations import get_text
 from datetime import datetime
 
 def render_api_ui():
@@ -82,3 +82,4 @@ def render_api_ui():
 
 if __name__ == "__main__":
     render_api_ui()
+
