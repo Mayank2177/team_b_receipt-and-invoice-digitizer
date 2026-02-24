@@ -1,6 +1,6 @@
 import streamlit as st  # type: ignore
-from database.queries import clear_all_receipts  # type: ignore
-from config.translations import get_text, get_available_languages  # type: ignore
+from queries import clear_all_receipts  # type: ignore
+from translations import get_text, get_available_languages  # type: ignore
 
 
 def render_sidebar():
@@ -115,7 +115,7 @@ def render_sidebar():
         st.markdown("### 💰 Monthly Budget")
         
         # Get current month spending
-        from database.queries import fetch_all_receipts
+        from queries import fetch_all_receipts
         from datetime import datetime
         import pandas as pd
         
@@ -182,3 +182,4 @@ def render_sidebar():
         st.caption("v2.0 • Built with ❤️ using Streamlit & Gemini AI")
         
         return page
+
