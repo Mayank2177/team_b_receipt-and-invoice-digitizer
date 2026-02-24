@@ -2,9 +2,9 @@
 import streamlit as st  # type: ignore
 import pandas as pd  # type: ignore
 import plotly.express as px  # type: ignore
-from database.queries import fetch_all_receipts, search_receipts, delete_receipt  # type: ignore
-from ai.insights import generate_ai_insights  # type: ignore
-from config.config import CURRENCY_SYMBOL  # type: ignore
+from queries import fetch_all_receipts, search_receipts, delete_receipt  # type: ignore
+from insights import generate_ai_insights  # type: ignore
+from config import CURRENCY_SYMBOL  # type: ignore
 from datetime import datetime  # type: ignore
 import io  # type: ignore
 from reportlab.lib.pagesizes import letter, A4  # type: ignore
@@ -13,7 +13,7 @@ from reportlab.lib.units import inch  # type: ignore
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer  # type: ignore
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle  # type: ignore
 from reportlab.lib.enums import TA_CENTER  # type: ignore
-from config.translations import get_text, TRANSLATIONS # type: ignore
+from translations import get_text, TRANSLATIONS # type: ignore
 
 
 def generate_pdf_report(df, lang="en"):
@@ -252,3 +252,4 @@ def render_dashboard():
                 st.rerun()
             else:
                 st.warning("Select receipts to delete")
+
