@@ -1,8 +1,8 @@
 from typing import Any, Dict  # type: ignore
 import streamlit as st  # type: ignore
 from datetime import datetime  # type: ignore
-from queries import fetch_all_receipts, receipt_exists  # type: ignore
-from translations import get_text # type: ignore
+from database.queries import fetch_all_receipts, receipt_exists  # type: ignore
+from config.translations import get_text # type: ignore
 import pandas as pd # type: ignore
 
 EXPECTED_TAX_RATE = 0.08   # 8%
@@ -245,4 +245,3 @@ def validation_ui():
             st.success("🎉 Stored receipt passed validation")
         else:
             st.error("❌ Stored receipt failed validation")
-

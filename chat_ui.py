@@ -1,8 +1,8 @@
 # Receipt Vault - Chat with Data
 import streamlit as st  # type: ignore
 import pandas as pd  # type: ignore
-from queries import fetch_all_receipts  # type: ignore
-from gemini_client import GeminiClient  # type: ignore
+from database.queries import fetch_all_receipts  # type: ignore
+from ai.gemini_client import GeminiClient  # type: ignore
 
 def render_chat():
     st.header("💬 Chat with your Receipts")
@@ -50,4 +50,3 @@ def render_chat():
                     st.session_state.messages.append({"role": "assistant", "content": response})
                 except Exception as e:
                     st.error(f"Chat failed: {e}")
-
