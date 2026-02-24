@@ -1,6 +1,6 @@
 
 import streamlit as st  # type: ignore
-from config.translations import get_text, get_available_languages  # type: ignore
+from translations import get_text, get_available_languages  # type: ignore
 
 
 def apply_landing_css():
@@ -450,3 +450,4 @@ def render_landing_page():
         if st.button(f"🎉 {get_text(lang, 'get_started')} - It's Free!", use_container_width=True, type="primary", key="final_cta"):
             st.session_state["page"] = "signup"
             st.rerun()
+
