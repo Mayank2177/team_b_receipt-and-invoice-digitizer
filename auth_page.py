@@ -1,5 +1,5 @@
 import streamlit as st  # type: ignore
-from config.translations import get_text, get_available_languages  # type: ignore
+from translations import get_text, get_available_languages  # type: ignore
 import hashlib  # type: ignore
 import json  # type: ignore
 import os  # type: ignore
@@ -402,3 +402,4 @@ def render_signup_page():
         if st.button(get_text(lang, "login"), use_container_width=True):
             st.session_state["page"] = "login"
             st.rerun()
+
