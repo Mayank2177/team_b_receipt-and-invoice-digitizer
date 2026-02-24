@@ -74,9 +74,10 @@ def render_main_app():
         from ui.chat_ui import render_chat
         render_chat()
     elif app_page == get_text(lang, "erp_integration") or app_page == "ERP & API":
-        from ui.api_ui import render_api_ui
+        from api_ui import render_api_ui
         render_api_ui()
 
 
 if __name__ == "__main__":
     main()
+
