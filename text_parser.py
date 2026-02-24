@@ -52,7 +52,7 @@ def _extract_date(text):
     return datetime.today().strftime("%Y-%m-%d")
 
 
-from ocr.templates import get_matching_template
+from templates import get_matching_template
 
 # ---------- MAIN PARSER ----------
 
@@ -278,3 +278,4 @@ def parse_receipt(text: str):
     }
 
     return data, items
+
