@@ -1,4 +1,4 @@
-from database.db import get_db
+from db import get_db
 from typing import List, Dict, Any, Optional
 
 # ================= SAVE RECEIPT =================
@@ -228,3 +228,4 @@ def clear_all_receipts():
     db.execute("DELETE FROM receipts")
     db.execute("DELETE FROM sqlite_sequence WHERE name='receipts'")
     db.commit()
+
