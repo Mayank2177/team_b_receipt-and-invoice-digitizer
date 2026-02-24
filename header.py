@@ -1,5 +1,5 @@
 import streamlit as st  # type: ignore
-from config.translations import get_text  # type: ignore
+from translations import get_text  # type: ignore
 
 def render_header():
     """Render a simple, clean header with navigation"""
@@ -78,3 +78,4 @@ def render_header():
     st.divider()
     
     return st.session_state.get("current_nav_page", "dashboard")
+
