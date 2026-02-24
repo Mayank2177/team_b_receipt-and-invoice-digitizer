@@ -3,10 +3,10 @@ from PIL import Image  # type: ignore
 import pytesseract  # type: ignore
 import pandas as pd  # type: ignore
 
-from ocr.text_parser import parse_receipt  # type: ignore
-from ui.validation_ui import validate_receipt  # type: ignore
-from database.queries import save_receipt, receipt_exists  # type: ignore
-from config.translations import get_text  # type: ignore
+from text_parser import parse_receipt  # type: ignore
+from validation_ui import validate_receipt  # type: ignore
+from queries import save_receipt, receipt_exists  # type: ignore
+from translations import get_text  # type: ignore
 
 import pytesseract
 import os
@@ -32,7 +32,7 @@ def render_upload_ui():
 
     # ================= IMAGE PROCESSING =================
     if uploaded.type == "application/pdf":
-        from ocr.pdf_processor import pdf_to_images
+        from pdf_processor import pdf_to_images
         with st.spinner(get_text(lang, "converting_pdf")):
             try:
                 pdf_images = pdf_to_images(uploaded.read())
@@ -69,7 +69,7 @@ def render_upload_ui():
 
     with st.spinner(get_text(lang, "extracting_data")):
         if use_ai:
-            from ai.gemini_client import GeminiClient
+            from gemini_client import GeminiClient
             try:
                 client = GeminiClient(api_key)
                 # Gemini takes PIL image directly
@@ -87,7 +87,7 @@ def render_upload_ui():
             import numpy as np
             import cv2
             # Use image_preprocessing if available
-            from ocr.image_preprocessing import preprocess_image
+            from image_preprocessing import preprocess_image
             gray_preprocessed = preprocess_image(img)
             text = pytesseract.image_to_string(gray_preprocessed)
             if not text.strip():
@@ -298,3 +298,4 @@ def render_upload_ui():
         st.success(get_text(lang, "validation_passed_save"))
     else:
         st.error(get_text(lang, "validation_failed"))
+
